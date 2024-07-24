@@ -1,8 +1,7 @@
-// src/views/Login/Login.tsx
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../../config/firebase/FirebaseMethodsIndex";
+import { loginUser } from "../../config/firebase";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,7 +10,16 @@ export default function Login() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    loginUser(email, password, navigate);
+  };
+
+  const loginFunc = async () => {
+    try {
+      await loginUser(email, password);
+      await Swal.fire("Success", "Successfully logged in", "success");
+      navigate("/");
+    } catch {
+      await Swal.fire("Error", "There was an error during login", "error");
+    }
   };
 
   return (
@@ -70,6 +78,7 @@ export default function Login() {
             <button
               type="submit"
               className="w-full px-3 py-2 mb-4 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
+              onClick={loginFunc}
             >
               Sign In
             </button>

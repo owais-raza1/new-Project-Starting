@@ -6,6 +6,7 @@ import Screen3 from "../views/Screen3";
 import Screen4 from "../views/Screen4";
 import Signup from "../views/SignUp";
 import Login from "../views/Login";
+import AddProduct from "../views/AddProduct";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/add-Product",
+    element: <AddProduct />,
   },
   {
     path: "/detail/:id",

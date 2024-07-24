@@ -6,7 +6,7 @@ function Screen4() {
   return (
     <>
       <Navbar />
-      <h1>Screen 4</h1>
+      <h1 className="text-2xl mt-20">Screen 4</h1>
       <Footer />
     </>
   );

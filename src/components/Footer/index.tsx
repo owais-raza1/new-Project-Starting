@@ -1,17 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaInstagram,
+  FaLinkedinIn,
+} from "react-icons/fa";
 
 const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-900 text-white py-8 mt-8">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        
         <div className="text-2xl font-bold mb-4 md:mb-0">
           <span>Logo</span>
         </div>
 
-        
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8">
           <NavLink
             to="/"
@@ -39,7 +42,6 @@ const Footer: React.FC = () => {
           </NavLink>
         </div>
 
-        
         <div className="flex space-x-4 mt-4 md:mt-0">
           <a
             href="https://facebook.com"
@@ -83,7 +85,9 @@ const Footer: React.FC = () => {
       {/* Footer Bottom */}
       <div className="bg-gray-800 text-gray-400 py-4 mt-6">
         <div className="container mx-auto text-center">
-          <p>&copy; {new Date().getFullYear()} Your Website. All Rights Reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} Your Website. All Rights Reserved.
+          </p>
           <p>
             <NavLink
               to="/privacy-policy"

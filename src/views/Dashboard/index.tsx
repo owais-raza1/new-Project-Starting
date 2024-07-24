@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import { auth, onAuthStateChanged } from "../../config/firebase";
 
 interface Product {
   id: number;
@@ -13,7 +14,25 @@ interface Product {
 
 function Dashboard() {
   const [products, setProducts] = useState<Product[]>([]);
+  const [user, setUser] = useState<any>();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user);
+        console.log("user logged in", user);
+
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.uid;
+        // ...
+      } else {
+        // User is signed out
+        // ...
+      }
+    });
+  }, []);
 
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
@@ -28,7 +47,12 @@ function Dashboard() {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto p-6 mt-20">
+      <div className="mt-20">
+        <h1 className="text-xl text-blue-800 hover:text-blue-900 text-center">
+          {user?.email}
+        </h1>
+      </div>
+      <div className="container mx-auto p-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {products.map((item) => (
             <div

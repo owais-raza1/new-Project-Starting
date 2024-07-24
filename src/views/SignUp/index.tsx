@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { SignUpUser } from "../../config/firebase/FirebaseMethodsIndex";
+import { SignUpUser } from "../../config/firebase";
+import Swal from "sweetalert2";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -11,9 +12,17 @@ export default function SignUp() {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    SignUpUser(email, password, navigate);
   };
 
+  const register = async () => {
+    try {
+      await SignUpUser({firstName,lastName,email,password});
+      await Swal.fire("Success", "Register successful", "success");
+      navigate("/login");
+    } catch {
+      await Swal.fire("Error", "There was an error during registration", "error");
+    }
+  };
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
@@ -89,7 +98,7 @@ export default function SignUp() {
           <button
             type="submit"
             className="w-full px-3 py-2 mt-6 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
-            onClick={handleSubmit}
+            onClick={register}
           >
             Sign Up
           </button>
