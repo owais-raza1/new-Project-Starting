@@ -10,19 +10,30 @@ export default function SignUp() {
   const [lastName, setLastName] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    if (!firstName || !lastName || !email || !password) {
+      Swal.fire("Validation Error", "Please fill out all fields", "warning");
+      return;
+    }
+    register();
   };
 
   const register = async () => {
     try {
-      await SignUpUser({firstName,lastName,email,password});
+      await SignUpUser({ firstName, lastName, email, password });
       await Swal.fire("Success", "Register successful", "success");
       navigate("/login");
-    } catch {
-      await Swal.fire("Error", "There was an error during registration", "error");
+    } catch (error: any) {
+      console.error("Registration error:", error);
+      await Swal.fire(
+        "Error",
+        `There was an error during registration: ${error.message}`,
+        "error"
+      );
     }
   };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md">
@@ -47,6 +58,7 @@ export default function SignUp() {
               <input
                 onChange={(e) => setFirstName(e.target.value)}
                 type="text"
+                value={firstName}
                 required
                 className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
               />
@@ -58,6 +70,7 @@ export default function SignUp() {
               <input
                 onChange={(e) => setLastName(e.target.value)}
                 type="text"
+                value={lastName}
                 required
                 className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
               />
@@ -70,6 +83,7 @@ export default function SignUp() {
             <input
               onChange={(e) => setEmail(e.target.value)}
               type="email"
+              value={email}
               required
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
             />
@@ -81,6 +95,7 @@ export default function SignUp() {
             <input
               onChange={(e) => setPassword(e.target.value)}
               type="password"
+              value={password}
               required
               className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
             />
@@ -98,7 +113,6 @@ export default function SignUp() {
           <button
             type="submit"
             className="w-full px-3 py-2 mt-6 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
-            onClick={register}
           >
             Sign Up
           </button>

@@ -10,24 +10,46 @@ const AddProduct = () => {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!title || !description || price === "" || !image) {
+      Swal.fire("Validation Error", "All fields are required.", "warning");
+      return;
+    }
+
     try {
-      if (!title || !description || !price || !image) {
-        throw new Error("All fields are required.");
+      if (image instanceof File) {
+        await addProduct({ title, description, price, image });
+        Swal.fire("Success", "Product Added Successfully", "success");
+      } else {
+        throw new Error("Invalid image file.");
       }
-      await addProduct({ title, description, price, image });
-      await Swal.fire("Success", "Product Added Successfully", "success");
-    } catch (error) {
-      await Swal.fire("Error", "There was an error during Product Added", "error");
+      setTitle("");
+      setDescription("");
+      setPrice("");
+      setImage(null);
+    } catch (error: any) {
+      console.error("Error adding product:", error);
+      Swal.fire(
+        "Error",
+        `There was an error adding the product: ${error.message}`,
+        "error"
+      );
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form onSubmit={onSubmit} className="w-full max-w-lg p-8 bg-white shadow-lg rounded-lg">
+      <form
+        onSubmit={onSubmit}
+        className="w-full max-w-lg p-8 bg-white shadow-lg rounded-lg"
+      >
         <h2 className="text-2xl font-bold text-center mb-6">Add Product</h2>
 
         <div className="mb-4">
-          <label htmlFor="title" className="block text-gray-700 font-semibold mb-2">
+          <label
+            htmlFor="title"
+            className="block text-gray-700 font-semibold mb-2"
+          >
             Title
           </label>
           <input
@@ -36,12 +58,16 @@ const AddProduct = () => {
             id="title"
             name="title"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={title}
             required
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="description" className="block text-gray-700 font-semibold mb-2">
+          <label
+            htmlFor="description"
+            className="block text-gray-700 font-semibold mb-2"
+          >
             Description
           </label>
           <textarea
@@ -49,12 +75,16 @@ const AddProduct = () => {
             id="description"
             name="description"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={description}
             required
           />
         </div>
 
         <div className="mb-4">
-          <label htmlFor="price" className="block text-gray-700 font-semibold mb-2">
+          <label
+            htmlFor="price"
+            className="block text-gray-700 font-semibold mb-2"
+          >
             Price
           </label>
           <input
@@ -63,16 +93,22 @@ const AddProduct = () => {
             id="price"
             name="price"
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={price}
             required
           />
         </div>
 
         <div className="mb-6">
-          <label htmlFor="image" className="block text-gray-700 font-semibold mb-2">
+          <label
+            htmlFor="image"
+            className="block text-gray-700 font-semibold mb-2"
+          >
             Image
           </label>
           <input
-            onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}
+            onChange={(e) =>
+              setImage(e.target.files ? e.target.files[0] : null)
+            }
             type="file"
             id="image"
             name="image"

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 
 const Navbar: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -10,7 +11,7 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-gray-800 text-lg font-bold">Logo</div>
 
-        <div className="hidden md:flex space-x-4 ml-4">
+        <div className="hidden md:flex items-center space-x-4 ml-4">
           {["/", "/screen2", "/screen3", "/screen4"].map((path, index) => (
             <NavLink
               key={index}
@@ -64,10 +65,98 @@ const Navbar: React.FC = () => {
         </div>
 
         <div className="md:hidden">
-          <button className="text-gray-600 hover:text-gray-800 focus:outline-none">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+          <button
+            className="text-gray-600 hover:text-gray-800 focus:outline-none"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16m-7 6h7"
+              />
             </svg>
+          </button>
+        </div>
+      </div>
+
+      <div
+        className={`fixed inset-0 bg-white shadow-lg transform ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        } transition-transform duration-300 ease-in-out md:hidden`}
+      >
+        <div className="flex justify-between items-center p-4 border-b">
+          <div className="text-gray-800 text-lg font-bold">Logo</div>
+          <button
+            className="text-gray-600 hover:text-gray-800"
+            onClick={() => setIsOpen(false)}
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div className="flex flex-col p-4 space-y-4">
+          {["/", "/screen2", "/screen3", "/screen4"].map((path, index) => (
+            <NavLink
+              key={index}
+              to={path}
+              className={({ isActive }) =>
+                `text-gray-600 hover:text-green-500 ${
+                  isActive ? "font-bold" : ""
+                }`
+              }
+              onClick={() => setIsOpen(false)}
+            >
+              {`Screen ${index + 1}`}
+            </NavLink>
+          ))}
+          {location.pathname === "/" && (
+            <button
+              className="text-white bg-purple-600 px-4 py-2 rounded-md hover:bg-purple-500"
+              onClick={() => {
+                navigate("/add-product");
+                setIsOpen(false);
+              }}
+            >
+              Add Product
+            </button>
+          )}
+          <button
+            className="text-white bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-500"
+            onClick={() => {
+              navigate("/signup");
+              setIsOpen(false);
+            }}
+          >
+            Sign Up
+          </button>
+          <button
+            className="text-white bg-green-600 px-4 py-2 rounded-md hover:bg-green-500"
+            onClick={() => {
+              navigate("/login");
+              setIsOpen(false);
+            }}
+          >
+            Log In
           </button>
         </div>
       </div>

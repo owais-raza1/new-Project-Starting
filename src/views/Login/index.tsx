@@ -10,6 +10,11 @@ export default function Login() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    if (!email || !password) {
+      Swal.fire("Validation Error", "Please fill out all fields", "warning");
+      return;
+    }
+    loginFunc();
   };
 
   const loginFunc = async () => {
@@ -17,8 +22,13 @@ export default function Login() {
       await loginUser(email, password);
       await Swal.fire("Success", "Successfully logged in", "success");
       navigate("/");
-    } catch {
-      await Swal.fire("Error", "There was an error during login", "error");
+    } catch (error: any) {
+      console.error("Login error:", error);
+      await Swal.fire(
+        "Error",
+        `There was an error during login: ${error.message}`,
+        "error"
+      );
     }
   };
 
@@ -53,6 +63,7 @@ export default function Login() {
               <input
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
+                value={email}
                 required
                 className="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
               />
@@ -64,6 +75,7 @@ export default function Login() {
               <input
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
+                value={password}
                 required
                 className="w-full px-3 py-2 mb-4 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
               />
@@ -78,7 +90,6 @@ export default function Login() {
             <button
               type="submit"
               className="w-full px-3 py-2 mb-4 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none"
-              onClick={loginFunc}
             >
               Sign In
             </button>

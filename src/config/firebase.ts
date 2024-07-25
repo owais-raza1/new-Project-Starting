@@ -32,7 +32,7 @@ const storage = getStorage(app);
 export const SignUpUser = async (userinfo: any) => {
   const { firstName, lastName, email, password } = userinfo;
   await createUserWithEmailAndPassword(auth, email, password);
-  const docRef = await addDoc(collection(db, "users"), {
+  return addDoc(collection(db, "users"), {
     email,
     firstName,
     lastName,
@@ -46,8 +46,6 @@ export const loginUser = (email: string, password: string) => {
 export const addProduct = async (product: any) => {
   const { title, description, price, image } = product;
 
-  if (!image) throw new Error("Image is required");
-
   const storageRef = ref(storage, "products/" + image.name);
 
   await uploadBytes(storageRef, image);
@@ -60,7 +58,7 @@ export const addProduct = async (product: any) => {
     price,
     image: url,
   });
-  
+
   const docRef = doc(db, "products", );
   const docSnap = await getDoc(docRef);
 
