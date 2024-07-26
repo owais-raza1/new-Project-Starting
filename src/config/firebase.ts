@@ -5,6 +5,7 @@ import {
   addDoc,
   doc,
   getDoc,
+  getDocs,
 } from "firebase/firestore";
 import {
   getAuth,
@@ -52,22 +53,23 @@ export const addProduct = async (product: any) => {
 
   const url = await getDownloadURL(storageRef);
 
-  await addDoc(collection(db, "products"), {
+  return addDoc(collection(db, "products"), {
     title,
     description,
     price,
     image: url,
   });
+};
 
-  const docRef = doc(db, "products", );
-  const docSnap = await getDoc(docRef);
+export const getFirestoreProducts = async () => {
+  const products:any = [];
+  const querySnapshot = await getDocs(collection(db, 'products'));
 
-  if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
-  } else {
-    // docSnap.data() will be undefined in this case
-    console.log("No such document!");
-  }
+  querySnapshot.forEach((doc) => {
+    products.push({ id: doc.id, ...doc.data() });
+  });
+
+  return products;
 };
 
 export { app, db, onAuthStateChanged, auth };

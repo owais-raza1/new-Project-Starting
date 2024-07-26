@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { auth, onAuthStateChanged } from "../../config/firebase";
+import { getFirestoreProducts } from "../../config/firebase";
 
 interface Product {
-  id: number;
+  id: string;
   title: string;
   image: string;
   description: string;
@@ -28,12 +29,26 @@ function Dashboard() {
   }, []);
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((json) => {
-        setProducts(json);
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+
+        const apiResponse = await fetch("https://fakestoreapi.com/products");
+        const apiProducts = await apiResponse.json();
+
+        const firestoreProducts = await getFirestoreProducts();
+
+        const combinedProducts = [...firestoreProducts, ...apiProducts];
+
+        setProducts(combinedProducts);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchProducts();
   }, []);
 
   useEffect(() => {
@@ -52,7 +67,7 @@ function Dashboard() {
     };
   }, []);
 
-  const gotoDetail = (id: number) => {
+  const gotoDetail = (id: string) => {
     navigate(`/detail/${id}`);
   };
 

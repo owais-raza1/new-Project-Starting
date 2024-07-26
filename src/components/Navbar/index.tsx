@@ -12,7 +12,12 @@ const Navbar: React.FC = () => {
         <div className="text-gray-800 text-lg font-bold">Logo</div>
 
         <div className="hidden md:flex items-center space-x-4 ml-4">
-          {["/", "/screen2", "/screen3", "/screen4"].map((path, index) => (
+          {[
+            { path: "/", name: "Product" },
+            { path: "/screen2", name: "Screen 2" },
+            { path: "/screen3", name: "Screen 3" },
+            { path: "/screen4", name: "Screen 4" },
+          ].map(({ path, name }, index) => (
             <NavLink
               key={index}
               to={path}
@@ -22,7 +27,7 @@ const Navbar: React.FC = () => {
                 }`
               }
             >
-              {`Screen ${index + 1}`}
+              {name}
               <span className="absolute left-0 bottom-0 w-full h-0.5 bg-green-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></span>
             </NavLink>
           ))}
@@ -115,7 +120,12 @@ const Navbar: React.FC = () => {
           </button>
         </div>
         <div className="flex flex-col p-4 space-y-4">
-          {["/", "/screen2", "/screen3", "/screen4"].map((path, index) => (
+          {[
+            { path: "/", name: "Product" },
+            { path: "/screen2", name: "Screen 2" },
+            { path: "/screen3", name: "Screen 3" },
+            { path: "/screen4", name: "Screen 4" },
+          ].map(({ path, name }, index) => (
             <NavLink
               key={index}
               to={path}
@@ -126,7 +136,7 @@ const Navbar: React.FC = () => {
               }
               onClick={() => setIsOpen(false)}
             >
-              {`Screen ${index + 1}`}
+              {name}
             </NavLink>
           ))}
           {location.pathname === "/" && (
