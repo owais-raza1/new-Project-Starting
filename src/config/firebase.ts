@@ -72,4 +72,18 @@ export const getFirestoreProducts = async () => {
   return products;
 };
 
+export const getFirestoreSingleProduct = async (id: string) => {
+  try {
+    const productDoc = await getDoc(doc(db, "products", id));
+    if (productDoc.exists()) {
+      return { id: productDoc.id, ...productDoc.data() };
+    } else {
+      throw new Error("Product not found");
+    }
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    throw error;
+  }
+};
+
 export { app, db, onAuthStateChanged, auth };

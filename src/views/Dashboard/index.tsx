@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import { auth, onAuthStateChanged } from "../../config/firebase";
-import { getFirestoreProducts } from "../../config/firebase";
+import { auth, onAuthStateChanged, getFirestoreProducts } from "../../config/firebase";
 
 interface Product {
   id: string;
@@ -32,15 +31,8 @@ function Dashboard() {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-
-        const apiResponse = await fetch("https://fakestoreapi.com/products");
-        const apiProducts = await apiResponse.json();
-
         const firestoreProducts = await getFirestoreProducts();
-
-        const combinedProducts = [...firestoreProducts, ...apiProducts];
-
-        setProducts(combinedProducts);
+        setProducts(firestoreProducts);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -78,7 +70,7 @@ function Dashboard() {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto mt-20 p-6 min-h-screen flex flex-col justify-center items-center relative">
+      <div className="container mx-auto mt-20 px-4 min-h-screen flex flex-col justify-center items-center relative">
         {loading ? (
           <div className="flex flex-col items-center">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 mb-4"></div>
@@ -89,7 +81,7 @@ function Dashboard() {
             <h1 className="text-xl text-blue-800 hover:text-blue-900 text-center mb-8">
               {user?.email}
             </h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {products.map((item) => (
                 <div
                   key={item.id}
@@ -100,15 +92,12 @@ function Dashboard() {
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="w-36 h-48 object-cover rounded-lg"
+                      className="w-60 h-72 object-cover rounded-lg"
                     />
                   </div>
                   <h5 className="text-lg font-semibold mb-2 text-gray-900">
                     {item.title}
                   </h5>
-                  <p className="text-sm text-gray-700 mb-4">
-                    {item.description}
-                  </p>
                   <p className="text-lg font-semibold text-red-500">
                     ${item.price.toFixed(2)}
                   </p>
