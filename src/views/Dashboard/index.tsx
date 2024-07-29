@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import { auth, onAuthStateChanged, getFirestoreProducts } from "../../config/firebase";
+import {
+  auth,
+  onAuthStateChanged,
+  getFirestoreProducts,
+} from "../../config/firebase";
 
 interface Product {
   id: string;
@@ -45,7 +49,7 @@ function Dashboard() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 700) {
+      if (window.scrollY > 600) {
         setShowBackToTop(true);
       } else {
         setShowBackToTop(false);
