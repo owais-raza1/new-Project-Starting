@@ -22,7 +22,7 @@ const AddProduct = () => {
         Swal.fire({
           icon: 'success',
           title: 'Products Loaded',
-          text: 'Data has been successfully fetched and combined.',
+          text: 'Data has been successfully fetched.',
         });
       } else {
         throw new Error("Invalid image file.");
