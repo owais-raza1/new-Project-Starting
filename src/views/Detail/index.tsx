@@ -1,14 +1,26 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { getFirestoreSingleProduct } from "../../config/firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../store/slice/cartSlice";
+import { log } from "console";
 
 function Detail() {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const color: any = useSelector((state: any) => state.color);
+
+  const dispatch = useDispatch()
+
+  const addToCartFun = () => {
+     dispatch(addToCart(product))
+  }
+ console.log("dispatch",dispatch);
+ 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -28,12 +40,10 @@ function Detail() {
   return (
     <>
       <Navbar />
-      <div className="flex gap-4 justify-center bg-gray-100">
-        <div className="w-7 h-7 rounded-full bg-red-600 mt-28"></div>
-        <div className="w-7 h-7 rounded-full bg-green-600 mt-28"></div>
-        <div className="w-7 h-7 rounded-full bg-blue-600 mt-28"></div>
-      </div>
-      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100">
+      <div
+        style={{ backgroundColor: color }}
+        className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100 mt-[72px]"
+      >
         {loading ? (
           <div className="flex flex-col items-center bg-gray-300">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 mb-4"></div>
@@ -79,7 +89,9 @@ function Detail() {
                     </>
                   )}
                 </div>
-                <button className="mt-6 py-2 px-4 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition ease-in-out duration-300">
+                <button 
+                onClick={addToCartFun}
+                className="mt-6 py-2 px-4 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition ease-in-out duration-300">
                   Add to Cart
                 </button>
               </div>

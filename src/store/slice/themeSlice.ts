@@ -1,25 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 // import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface CounterState {
-  color: string
+  color: any;
 }
 
 const initialState: CounterState = {
-  color: "red",
-}
+   color: null,
+};
 
 export const themeSlice = createSlice({
-  name: 'theme',
+  name: "theme",
   initialState,
   reducers: {
-    setTheme: (state) => {
-      state.color = 'blue'
+    setTheme: (state:any, data) => {
+      state.color = data.payload;
     },
   },
-})
+});
 
 // Action creators are generated for each case reducer function
-export const { setTheme } = themeSlice.actions
+export const { setTheme } = themeSlice.actions;
 
-export default themeSlice.reducer
+export default themeSlice.reducer;

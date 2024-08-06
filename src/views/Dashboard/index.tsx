@@ -7,6 +7,7 @@ import {
   onAuthStateChanged,
   getFirestoreProducts,
 } from "../../config/firebase";
+import { useSelector } from "react-redux";
 
 interface Product {
   id: string;
@@ -22,6 +23,8 @@ function Dashboard() {
   const [user, setUser] = useState<any>();
   const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  const color: any = useSelector((state: any) => state.color);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -74,7 +77,10 @@ function Dashboard() {
   return (
     <>
       <Navbar />
-      <div className="container mx-auto mt-20 px-4 min-h-screen flex flex-col justify-center items-center relative">
+      <div
+        style={{ backgroundColor: color }}
+        className="container mx-auto mt-[72px] px-4 min-h-screen flex flex-col justify-center items-center relative"
+      >
         {loading ? (
           <div className="flex flex-col items-center">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 mb-4"></div>

@@ -1,11 +1,28 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { setTheme } from "../../store/slice/themeSlice";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
+  const dispatch = useDispatch();
+
+  const darkTheme = () => {
+    dispatch(setTheme("black"));
+  };
+
+  const lightTheme = () => {
+    dispatch(setTheme("white"));
+  };
+
+  const isDetailPage = location.pathname.startsWith("/detail/");
+
+  const cart: any = useSelector((state: any) => state.cart);
+  
+  console.log("cart", cart);
   return (
     <nav className="bg-white p-4 shadow fixed z-10 left-0 top-0 right-0">
       <div className="container mx-auto flex justify-between items-center">
@@ -67,6 +84,32 @@ const Navbar = () => {
           >
             Log In
           </button>
+          {isDetailPage && (
+            <div className="flex">
+              <img
+                src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-add-to-cart--icon-design-png-image_4269918.jpg"
+                className="w-12"
+                alt="Add To Cart Icon"
+              />
+              <p className="mt-3 font-bold">{cart.length}</p>
+            </div>
+          )}
+          <div>
+            <img
+              src="https://png.pngtree.com/png-vector/20210823/ourmid/pngtree-dark-mode-icon-light-png-clipart-png-image_3811921.jpg"
+              className="w-9 cursor-pointer"
+              onClick={darkTheme}
+              alt="Dark Mode Icon"
+            />
+          </div>
+          <div>
+            <img
+              src="https://static.thenounproject.com/png/2853779-200.png"
+              className="w-7 cursor-pointer"
+              onClick={lightTheme}
+              alt="Light Mode Icon"
+            />
+          </div>
         </div>
 
         <div className="md:hidden">
@@ -168,6 +211,13 @@ const Navbar = () => {
           >
             Log In
           </button>
+          <div className="mt-4">
+            <img
+              src="https://png.pngtree.com/png-vector/20210823/ourmid/pngtree-dark-mode-icon-light-png-clipart-png-image_3811921.jpg"
+              className="w-7"
+              alt="Dark Mode Icon"
+            />
+          </div>
         </div>
       </div>
     </nav>

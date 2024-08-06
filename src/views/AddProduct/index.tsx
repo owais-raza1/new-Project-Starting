@@ -20,9 +20,9 @@ const AddProduct = () => {
       if (image instanceof File) {
         await addProduct({ title, description, price, image });
         Swal.fire({
-          icon: 'success',
-          title: 'Products Loaded',
-          text: 'Data has been successfully fetched.',
+          icon: "success",
+          title: "Products Loaded",
+          text: "Data has been successfully fetched.",
         });
       } else {
         throw new Error("Invalid image file.");
@@ -34,9 +34,9 @@ const AddProduct = () => {
     } catch (error: any) {
       console.error("Error adding product:", error);
       Swal.fire({
-        icon: 'error',
+        icon: "error",
         title: `Error:${error.message}`,
-        text: 'There was a problem fetching the products. Please try again.',
+        text: "There was a problem fetching the products. Please try again.",
       });
     }
   };
