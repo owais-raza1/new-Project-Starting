@@ -6,14 +6,14 @@ export interface CounterState {
 }
 
 const initialState: CounterState = {
-   color: null,
+  color: null,
 };
 
 export const themeSlice = createSlice({
   name: "theme",
   initialState,
   reducers: {
-    setTheme: (state:any, data) => {
+    setTheme: (state: any, data) => {
       state.color = data.payload;
     },
   },

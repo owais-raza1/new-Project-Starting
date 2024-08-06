@@ -21,7 +21,6 @@ const Navbar = () => {
   const isDetailPage = location.pathname.startsWith("/detail/");
 
   const cart: any = useSelector((state: any) => state.cart);
-  
   console.log("cart", cart);
   return (
     <nav className="bg-white p-4 shadow fixed z-10 left-0 top-0 right-0">

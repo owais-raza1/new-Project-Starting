@@ -1,21 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
-// import themeReducer from "./slice/themeSlice"
-import cartReducer from "./slice/themeSlice"
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import themeReducer from "./slice/themeSlice"
+import cartReducer from "./slice/cartSlice";
 
 const persistConfig = {
-    key: 'root',
-    storage,
-  }
+  key: "root",
+  storage,
+};
 
-  const persistedReducer = persistReducer(persistConfig, cartReducer)
-
+const persistedReducer = persistReducer(persistConfig, cartReducer);
 
 const store = configureStore({
-    reducer: persistedReducer,
-})
+  reducer: persistedReducer,
+});
 
-const persistor = persistStore(store)
+const persistor = persistStore(store);
 
-export { store, persistor}
+export { store, persistor };

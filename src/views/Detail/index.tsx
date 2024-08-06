@@ -5,7 +5,6 @@ import Footer from "../../components/Footer";
 import { getFirestoreSingleProduct } from "../../config/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../store/slice/cartSlice";
-import { log } from "console";
 
 function Detail() {
   const { id } = useParams<{ id: string }>();
@@ -14,13 +13,13 @@ function Detail() {
 
   const color: any = useSelector((state: any) => state.color);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const addToCartFun = () => {
-     dispatch(addToCart(product))
-  }
- console.log("dispatch",dispatch);
- 
+    dispatch(addToCart(product));
+  };
+  console.log("dispatch", dispatch);
+  
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -89,9 +88,10 @@ function Detail() {
                     </>
                   )}
                 </div>
-                <button 
-                onClick={addToCartFun}
-                className="mt-6 py-2 px-4 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition ease-in-out duration-300">
+                <button
+                  onClick={addToCartFun}
+                  className="mt-6 py-2 px-4 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition ease-in-out duration-300"
+                >
                   Add to Cart
                 </button>
               </div>

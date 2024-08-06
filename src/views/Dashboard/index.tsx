@@ -66,7 +66,7 @@ function Dashboard() {
     };
   }, []);
 
-  const gotoDetail = (id: string) => {
+  const gotoDetail = (id: any) => {
     navigate(`/detail/${id}`);
   };
 
@@ -79,7 +79,7 @@ function Dashboard() {
       <Navbar />
       <div
         style={{ backgroundColor: color }}
-        className="container mx-auto mt-[72px] px-4 min-h-screen flex flex-col justify-center items-center relative"
+        className="container mx-auto mt-[72px] px-4 min-h-screen flex flex-col justify-center items-center relative p-10"
       >
         {loading ? (
           <div className="flex flex-col items-center">

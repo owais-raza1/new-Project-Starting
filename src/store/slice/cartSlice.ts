@@ -2,18 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 // import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface CounterState {
-  cart: [],
+  cart: [];
 }
 
 const initialState: CounterState = {
-   cart: [],
+  cart: [],
 };
 
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addToCart: (state:any, data) => {
+    addToCart: (state: any, data) => {
       state.cart.push(data.payload);
     },
   },
