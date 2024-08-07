@@ -84,14 +84,14 @@ const Navbar = () => {
             Log In
           </button>
           {isDetailPage && (
-            <div className="flex">
+            <NavLink to="/cart-show" className="flex items-center">
               <img
                 src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-add-to-cart--icon-design-png-image_4269918.jpg"
                 className="w-12"
-                alt="Add To Cart Icon"
+                alt="Cart Icon"
               />
-              <p className="mt-3 font-bold">{cart.length}</p>
-            </div>
+              <p className="font-bold">{cart.length}</p>
+            </NavLink>
           )}
           <div>
             <img
