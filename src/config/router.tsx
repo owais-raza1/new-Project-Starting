@@ -7,7 +7,6 @@ import Screen4 from "../views/Screen4";
 import Signup from "../views/SignUp";
 import Login from "../views/Login";
 import AddProduct from "../views/AddProduct";
-import CartShow from "../views/CartShow/CartShow";
 
 const router = createBrowserRouter([
   {
@@ -25,10 +24,6 @@ const router = createBrowserRouter([
   {
     path: "/screen4",
     element: <Screen4 />,
-  },
-  {
-    path: "/cart-show",
-    element: <CartShow />,
   },
   {
     path: "/signup",
