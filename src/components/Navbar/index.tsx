@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { setTheme } from "../../store/slice/themeSlice";
-import CartShow from "../CartShow/CartShow"; // Import the CartShow component
+import CartShow from "../CartShow/CartShow";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false); // For mobile menu
-  const [isCartOpen, setIsCartOpen] = useState(false); // For cart side panel
+  const [isOpen, setIsOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -88,7 +88,7 @@ const Navbar = () => {
             {isDetailPage && (
               <div
                 className="relative flex items-center cursor-pointer"
-                onClick={() => setIsCartOpen(true)} // Open the cart panel
+                onClick={() => setIsCartOpen(true)} 
               >
                 <img
                   src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-add-to-cart--icon-design-png-image_4269918.jpg"
@@ -231,7 +231,6 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Cart Side Panel */}
       {isCartOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-20 flex justify-end">
           <div className="w-80 bg-white h-full shadow-lg p-4 overflow-y-auto">

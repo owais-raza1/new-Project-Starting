@@ -29,9 +29,14 @@ const CartShow: React.FC<CartShowProps> = ({ setIsCartOpen }) => {
                 className="w-16 h-16 object-cover rounded-md shadow-sm"
               />
               <div className="flex-1 ml-4">
-                <h4 className="text-sm font-semibold text-gray-800">{item.title}</h4>
+                <h4 className="text-sm font-semibold text-gray-800">
+                  {item.title}
+                </h4>
                 <p className="text-gray-600 mt-1">
-                  ${item.price} <span className="text-sm text-gray-400">x {item.quantity}</span>
+                  ${item.price}{" "}
+                  <span className="text-sm text-gray-400">
+                    x {item.quantity}
+                  </span>
                 </p>
               </div>
               <button
@@ -47,7 +52,11 @@ const CartShow: React.FC<CartShowProps> = ({ setIsCartOpen }) => {
             <span>
               $
               {cart
-                .reduce((total: number, item: any) => total + item.price * item.quantity, 0)
+                .reduce(
+                  (total: number, item: any) =>
+                    total + item.price * item.quantity,
+                  0
+                )
                 .toFixed(2)}
             </span>
           </div>
