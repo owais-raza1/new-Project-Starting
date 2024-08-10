@@ -19,7 +19,7 @@ const Navbar = () => {
     dispatch(setTheme("white"));
   };
 
-  const isDetailPage = location.pathname.startsWith("/detail/");
+  // const isDetailPage = location.pathname.startsWith("/detail/");
   const cart = useSelector((state: any) => state.cart);
 
   return (
@@ -56,7 +56,6 @@ const Navbar = () => {
               placeholder="Search..."
               className="px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-
             {location.pathname === "/" && (
               <button
                 className="text-white bg-purple-600 px-4 py-2 rounded-md hover:bg-purple-500"
@@ -85,23 +84,23 @@ const Navbar = () => {
               Log In
             </button>
 
-            {isDetailPage && (
-              <div
-                className="relative flex items-center cursor-pointer"
-                onClick={() => setIsCartOpen(true)} 
-              >
-                <img
-                  src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-add-to-cart--icon-design-png-image_4269918.jpg"
-                  className="w-12"
-                  alt="Cart Icon"
-                />
-                {cart.length > 0 && (
-                  <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
-                    {cart.length}
-                  </span>
-                )}
-              </div>
-            )}
+            {/* {isDetailPage && ( */}
+            <div
+              className="relative flex items-center cursor-pointer"
+              onClick={() => setIsCartOpen(true)}
+            >
+              <img
+                src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-add-to-cart--icon-design-png-image_4269918.jpg"
+                className="w-12"
+                alt="Cart Icon"
+              />
+              {cart.length > 0 && (
+                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                  {cart.length}
+                </span>
+              )}
+            </div>
+            {/* )} */}
 
             <div>
               <img

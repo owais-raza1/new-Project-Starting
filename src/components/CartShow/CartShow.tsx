@@ -32,6 +32,12 @@ const CartShow: React.FC<CartShowProps> = ({ setIsCartOpen }) => {
                 <h4 className="text-sm font-semibold text-gray-800">
                   {item.title}
                 </h4>
+                <p className="text-cyan-600 mt-1 font-semibold font-mono">
+                  <span className="text-gray-600 font-semibold font-sans">
+                    Quantity :{" "}
+                  </span>
+                  {item.quantity}
+                </p>
                 <p className="text-gray-600 mt-1">
                   ${item.price}{" "}
                   <span className="text-sm text-gray-400">
