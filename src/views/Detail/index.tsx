@@ -4,14 +4,14 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { getFirestoreSingleProduct } from "../../config/firebase";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../store/slice/cartSlice";
+import { addToCart } from "../../store/cartSlice";
 
 function Detail() {
   const { id } = useParams<{ id: string }>();
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const color: any = useSelector((state: any) => state.color);
+  const color: any = useSelector((state: any) => state.themeStore.color);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

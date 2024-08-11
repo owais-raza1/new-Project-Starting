@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { setTheme } from "../../store/slice/themeSlice";
+import { setTheme } from "../../store/themeSlice";
 import CartShow from "../CartShow/CartShow";
 
 const Navbar = () => {
@@ -20,7 +20,7 @@ const Navbar = () => {
   };
 
   // const isDetailPage = location.pathname.startsWith("/detail/");
-  const cart = useSelector((state: any) => state.cart);
+  const cart = useSelector((state: any) => state.cartStore.cart);
 
   return (
     <>

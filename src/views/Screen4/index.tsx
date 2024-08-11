@@ -4,7 +4,7 @@ import Footer from "../../components/Footer";
 import { useSelector } from "react-redux";
 
 function Screen4() {
-  const color: any = useSelector((state: any) => state.color);
+  const color: any = useSelector((state: any) => state.themeStore.color);
 
   return (
     <>

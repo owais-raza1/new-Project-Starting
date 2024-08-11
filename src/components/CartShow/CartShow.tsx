@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart } from "../../store/slice/cartSlice";
+import { removeFromCart } from "../../store/cartSlice";
 
 interface CartShowProps {
   setIsCartOpen: (isOpen: boolean) => void;
 }
 
 const CartShow: React.FC<CartShowProps> = ({ setIsCartOpen }) => {
-  const cart = useSelector((state: any) => state.cart);
+  const cart = useSelector((state: any) => state.cartStore.cart);
   const dispatch = useDispatch();
 
   return (

@@ -24,7 +24,7 @@ function Dashboard() {
   const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const color: any = useSelector((state: any) => state.color);
+  const color: any = useSelector((state: any) => state.themeStore.color);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
