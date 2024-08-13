@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { setTheme } from "../../store/themeSlice";
 import CartShow from "../CartShow/CartShow";
-import ProfileDropdown from "../ProfileDropDown"; // Import ProfileDropdown
-import { auth, logOut } from "../../config/firebase"; // Import logOut function from firebase
+import ProfileDropdown from "../ProfileDropDown";
+import { auth, logOut } from "../../config/firebase";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown
-  const [user, setUser] = useState<any>(null); // State for user
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -19,12 +19,12 @@ const Navbar = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        setUser(user); // Set user if logged in
+        setUser(user);
       } else {
-        setUser(null); // Clear user if logged out
+        setUser(null);
       }
     });
-    return () => unsubscribe(); // Cleanup subscription on unmount
+    return () => unsubscribe();
   }, []);
 
   const darkTheme = () => {
@@ -83,7 +83,10 @@ const Navbar = () => {
             {user ? (
               <div className="relative">
                 <img
-                  src={user.photoURL || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"} // Provide a default icon or URL
+                  src={
+                    user.photoURL ||
+                    "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                  }
                   className="w-8 h-8 rounded-full cursor-pointer"
                   alt="Profile Icon"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}

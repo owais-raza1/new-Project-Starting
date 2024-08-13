@@ -95,18 +95,4 @@ export const getFirestoreSingleProduct = async (id: string) => {
   }
 };
 
-export const getUserDetails = async (userId: string) => {
-  try {
-    const userDoc = await getDoc(doc(db, "users", userId));
-    if (userDoc.exists()) {
-      return userDoc.data();
-    } else {
-      throw new Error("User not found");
-    }
-  } catch (error) {
-    console.error("Error fetching user details:", error);
-    throw error;
-  }
-};
-
 export { app, db, onAuthStateChanged, auth };
