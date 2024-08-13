@@ -20,19 +20,10 @@ interface Product {
 function Dashboard() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [user, setUser] = useState<any>();
   const [showBackToTop, setShowBackToTop] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const color: any = useSelector((state: any) => state.themeStore.color);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      }
-    });
-  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -88,9 +79,6 @@ function Dashboard() {
           </div>
         ) : (
           <>
-            <h1 className="text-xl text-blue-800 hover:text-blue-900 text-center mb-8">
-              {user?.email}
-            </h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {products.map((item) => (
                 <div

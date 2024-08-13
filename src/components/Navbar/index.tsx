@@ -1,15 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { setTheme } from "../../store/themeSlice";
 import CartShow from "../CartShow/CartShow";
+import ProfileDropdown from "../ProfileDropDown"; // Import ProfileDropdown
+import { auth, logOut } from "../../config/firebase"; // Import logOut function from firebase
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown
+  const [user, setUser] = useState<any>(null); // State for user
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const cart = useSelector((state: any) => state.cartStore.cart);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user); // Set user if logged in
+      } else {
+        setUser(null); // Clear user if logged out
+      }
+    });
+    return () => unsubscribe(); // Cleanup subscription on unmount
+  }, []);
 
   const darkTheme = () => {
     dispatch(setTheme("black"));
@@ -18,9 +34,6 @@ const Navbar = () => {
   const lightTheme = () => {
     dispatch(setTheme("white"));
   };
-
-  // const isDetailPage = location.pathname.startsWith("/detail/");
-  const cart = useSelector((state: any) => state.cartStore.cart);
 
   return (
     <>
@@ -67,24 +80,39 @@ const Navbar = () => {
               </button>
             )}
 
-            <button
-              className="text-white bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-500"
-              onClick={() => {
-                navigate("/signup");
-              }}
-            >
-              Sign Up
-            </button>
-            <button
-              className="text-white bg-green-600 px-4 py-2 rounded-md hover:bg-green-500"
-              onClick={() => {
-                navigate("/login");
-              }}
-            >
-              Log In
-            </button>
+            {user ? (
+              <div className="relative">
+                <img
+                  src={user.photoURL || "https://cdn-icons-png.flaticon.com/512/3135/3135715.png"} // Provide a default icon or URL
+                  className="w-8 h-8 rounded-full cursor-pointer"
+                  alt="Profile Icon"
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                />
+                {isDropdownOpen && (
+                  <ProfileDropdown user={user} logOut={logOut} />
+                )}
+              </div>
+            ) : (
+              <>
+                <button
+                  className="text-white bg-blue-600 px-4 py-2 rounded-md hover:bg-blue-500"
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
+                >
+                  Sign Up
+                </button>
+                <button
+                  className="text-white bg-green-600 px-4 py-2 rounded-md hover:bg-green-500"
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                >
+                  Log In
+                </button>
+              </>
+            )}
 
-            {/* {isDetailPage && ( */}
             <div
               className="relative flex items-center cursor-pointer"
               onClick={() => setIsCartOpen(true)}
@@ -100,7 +128,6 @@ const Navbar = () => {
                 </span>
               )}
             </div>
-            {/* )} */}
 
             <div>
               <img

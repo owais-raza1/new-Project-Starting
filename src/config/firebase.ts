@@ -11,6 +11,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
   onAuthStateChanged,
 } from "firebase/auth";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
@@ -44,6 +45,14 @@ export const loginUser = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password);
 };
 
+export const logOut = async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error("Sign Out Error", error);
+  }
+};
+
 export const addProduct = async (product: any) => {
   const { title, description, price, image } = product;
 
@@ -62,8 +71,8 @@ export const addProduct = async (product: any) => {
 };
 
 export const getFirestoreProducts = async () => {
-  const products:any = [];
-  const querySnapshot = await getDocs(collection(db, 'products'));
+  const products: any = [];
+  const querySnapshot = await getDocs(collection(db, "products"));
 
   querySnapshot.forEach((doc) => {
     products.push({ id: doc.id, ...doc.data() });
@@ -82,6 +91,20 @@ export const getFirestoreSingleProduct = async (id: string) => {
     }
   } catch (error) {
     console.error("Error fetching product:", error);
+    throw error;
+  }
+};
+
+export const getUserDetails = async (userId: string) => {
+  try {
+    const userDoc = await getDoc(doc(db, "users", userId));
+    if (userDoc.exists()) {
+      return userDoc.data();
+    } else {
+      throw new Error("User not found");
+    }
+  } catch (error) {
+    console.error("Error fetching user details:", error);
     throw error;
   }
 };
