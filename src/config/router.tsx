@@ -30,13 +30,13 @@ const Main = () => {
     console.log(pathname);
 
     if (user) {
-      if (pathname === "/login" || pathname === "/signup") {
+      if (pathname === "/signup" || pathname === "/login") {
         navigate("/");
       }
     } else {
       if (pathname === "/add-product") navigate("/login");
     }
-  }, [window.location.pathname, user]);
+  }, [window.location.pathname]);
 
   return <Outlet />;
 };

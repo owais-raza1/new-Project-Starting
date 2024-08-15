@@ -134,15 +134,15 @@ const Navbar = () => {
 
             <div>
               <img
-                src="https://png.pngtree.com/png-vector/20210823/ourmid/pngtree-dark-mode-icon-light-png-clipart-png-image_3811921.jpg"
-                className="w-9 cursor-pointer"
+                src="https://static.thenounproject.com/png/2853798-200.png"
+                className="w-6 cursor-pointer"
                 onClick={darkTheme}
                 alt="Dark Mode Icon"
               />
             </div>
             <div>
               <img
-                src="https://static.thenounproject.com/png/2853779-200.png"
+                src="https://cdn-icons-png.flaticon.com/512/3073/3073665.png"
                 className="w-7 cursor-pointer"
                 onClick={lightTheme}
                 alt="Light Mode Icon"
