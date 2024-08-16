@@ -26,7 +26,7 @@ const Main = () => {
     });
   }, []);
   useEffect(() => {
-    const pathname = window.location.pathname;
+    const { pathname } = window.location;
     console.log(pathname);
 
     if (user) {
@@ -36,7 +36,7 @@ const Main = () => {
     } else {
       if (pathname === "/add-product") navigate("/login");
     }
-  }, [window.location.pathname]);
+  }, [window.location.pathname, user]);
 
   return <Outlet />;
 };
