@@ -14,7 +14,6 @@ const Footer = () => {
         <div className="text-2xl font-bold mb-4 md:mb-0">
           <span>Logo</span>
         </div>
-
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8">
           <NavLink
             to="/"

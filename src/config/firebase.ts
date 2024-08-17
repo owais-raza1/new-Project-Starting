@@ -48,8 +48,8 @@ export const loginUser = (email: string, password: string) => {
 export const logOut = async () => {
   try {
     await signOut(auth);
-  } catch (error) {
-    console.error("Sign Out Error", error);
+  } catch (error: any) {
+    console.error("Sign Out Error", error.message);
   }
 };
 

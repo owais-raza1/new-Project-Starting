@@ -27,7 +27,6 @@ const Main = () => {
   }, []);
   useEffect(() => {
     const { pathname } = window.location;
-    console.log(pathname);
 
     if (user) {
       if (pathname === "/signup" || pathname === "/login") {

@@ -172,7 +172,6 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-
         <div
           className={`fixed inset-0 bg-white shadow-lg transform ${
             isOpen ? "translate-x-0" : "translate-x-full"
