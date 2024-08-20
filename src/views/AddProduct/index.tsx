@@ -10,7 +10,6 @@ const AddProduct = () => {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!title || !description || price === "" || !image) {
       Swal.fire("Validation Error", "All fields are required.", "warning");
       return;
